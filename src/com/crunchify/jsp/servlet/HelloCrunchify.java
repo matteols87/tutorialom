@@ -66,12 +66,11 @@ public class HelloCrunchify extends HttpServlet {
 				
 				for (int i=0;i<continentList.size();i++){	
 					for (int j=i+1;j<continentList.size();j++){
-			            if(continentList.get(i).equals(continentList.get(j))){
-			            	
+			            if(continentList.get(i).equals(continentList.get(j))){	
 			            	continentList.remove(j);
-			            		}			     
-							}	
-						}
+			            	}			     
+						}	
+					}
 				
 				rs.close();
 				stmt.close();
