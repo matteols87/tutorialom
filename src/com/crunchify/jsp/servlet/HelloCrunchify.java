@@ -85,7 +85,7 @@ public class HelloCrunchify extends HttpServlet {
 				
 				e.printStackTrace();
 			}finally{
-			
+			//modifica
 				try{
 					if(stmt!=null)
 						stmt.close();
