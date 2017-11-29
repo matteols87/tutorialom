@@ -20,4 +20,13 @@
 		<servlet-name>countryServlet</servlet-name>
 		<url-pattern>/countries</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>cityServlet</servlet-name>
+		<servlet-class>it.objectmethod.world.servlet.CityServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>cityServlet</servlet-name>
+		<url-pattern>/cities</url-pattern>
+	</servlet-mapping>
+	
 </web-app>

@@ -9,9 +9,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.objectmethod.world.model.City;
 import it.objectmethod.world.model.Country;
 
 public class CountryDao {
+	
 	
 	public List<String> getAllDistinctContinents(){
 		Connection conn = null;
@@ -63,8 +65,7 @@ public class CountryDao {
 		PreparedStatement stmt = null;
 		List<Country> countries  = new ArrayList<Country>();
 		
-		try{
-			
+		try{	
 			conn = ConnectionFactory.getConnection();
 			System.out.println("Creating statement...");
 			
@@ -81,6 +82,7 @@ public class CountryDao {
 				c.setName(rs.getString("Name"));
 				countries.add(c);
 			}
+
 			
 			rs.close();
 			stmt.close();
@@ -106,5 +108,54 @@ public class CountryDao {
 			}
 		}
 		return countries;
+	}
+	
+	public List<City> getCitiesByCountry(String countryCode){
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		List<City> cities  = new ArrayList<City>();
+		
+		try{
+			conn = ConnectionFactory.getConnection();
+			System.out.println("Creating statement...");
+			
+			String sql = "SELECT Population, Name FROM city WHERE CountryCode = ?";
+			
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, countryCode);
+			
+			ResultSet rs = stmt.executeQuery();
+
+			while(rs.next()){
+				City c = new City();
+				c.setPopulation(rs.getString("Population"));
+				c.setName(rs.getString("Name"));
+				cities.add(c);
+			}
+
+			rs.close();
+			stmt.close();
+			conn.close();		
+		}catch(SQLException se){
+			se.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+		
+			try{
+				if(stmt!=null)
+					stmt.close();
+			}catch(SQLException se2){
+				se2.printStackTrace();
+			}
+			try{
+				if(conn!=null)
+					conn.close();
+			}catch(SQLException se){
+				
+				se.printStackTrace();
+			}
+		}
+		return cities;
 	}
 }
